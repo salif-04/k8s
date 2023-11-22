@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: auth-db
+spec:
+  selector:
+    app: auth-db-templatelabel
+  type: ClusterIP
+  ports:
+  - name: mongo-db-port
+    protocol: TCP
+    port: 27017
+    targetPort: 27017

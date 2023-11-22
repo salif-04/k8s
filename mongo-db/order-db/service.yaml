@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-db
+spec:
+  selector:
+    app: order-db-templatelabel
+  type: ClusterIP
+  ports:
+  - name: mongo-db-port
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
