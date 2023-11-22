@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: order-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-db-templatelabel
+  serviceName: order-db
+  template:
+    metadata:
+      labels:
+        app: order-db-templatelabel
+    spec:
+      containers:
+      - image: mongo:7.0-rc-jammy
+        name: order-db
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: azlan
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: password
+        - name: MONGO_INITDB_DATABASE
+          value: orderDb
+        volumeMounts:
+        - name: order-db-storage
+          mountPath: /data/db
+      volumes:
+      - name: order-db-storage
+        persistentVolumeClaim:
+          claimName: order-db-pvc
