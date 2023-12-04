@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-init-job
+spec:
+  template:
+    metadata:
+      name: db-init
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: db-init
+        image: salif04/db-init-job:1.0.1
+        env:
+        - name: AUTHDBCONNECTIONURI
+          value: mongodb://azlan:password@auth-db:27017
+        - name: ORDERDBCONNECTIONURI
+          value: mongodb://azlan:password@order-db:27017

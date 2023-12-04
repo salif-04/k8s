@@ -35,8 +35,6 @@ const createProducts = async (createdUsers) => {
             }).on("finish", async () => {
                 console.log(`Finished Reading Orders CSV`)
 
-                console.log(ordersToInsert)
-
                 const createdOrders = await Order.insertMany(ordersToInsert)
                 console.log(`Created Orders:`)
                 console.log(createdOrders)
